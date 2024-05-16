@@ -49,7 +49,7 @@ map.setView(L.latLng(45.51,-122.68), 16)
 
 
 /*
-This is responsible for making interactive markers.
+These are the marker locations and content associated with them.
 */
 const locations = [
 	{
@@ -61,14 +61,33 @@ const locations = [
 		content: `<img src='media/TEMP/hu-wine-container.jpg' width='300' height:'300'>`,
 	},
 	{
-	position: [45.515, -122.685],
-	content: `<img src='media/TEMP/chicken.jpg' width='500' height='500'>`,
+		position: [45.515, -122.685],
+		content: `<img src='media/TEMP/chicken.jpg' width='500' height='500'>`,
 	},
 ];
 
+/*
+This places the markers on the map and changes the onclick behavior.
+*/
 locations.forEach(({ position, content }) => {
 	var marker = L.marker(position).addTo(map);
 
-	//Recommend using .on with "click" event for our project.
-	marker.bindPopup(content);
+	marker.on("click", function () {
+		document.getElementById("sidecontent").innerHTML = content;
+		openside();
+	});
 });
+
+/*
+These handle onclick actions for the sidebar.
+*/
+function openside() {
+	//Reveal side panel.
+	document.getElementById("mySide").style.width = "200px";
+}
+
+function closeside() {
+	//Hide side panel.
+	document.getElementById("sidecontent").innerHTML = "";
+	document.getElementById("mySide").style.width = "0px";
+}
