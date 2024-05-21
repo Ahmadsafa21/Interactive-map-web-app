@@ -14,6 +14,11 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 	attribution: "© OpenStreetMap",
 }).addTo(map);
 
+// Initialize location to PSU Campus
+map.setView(L.latLng(45.51,-122.68), 16)
+// hide side panel at startup
+document.getElementById("mySide").hidden = true;
+
 
 /*
 This section asks users for their location.
@@ -43,12 +48,6 @@ This section handles failing to get user location.
 
 
 /*
-Set initial location to PSU campus
-*/
-map.setView(L.latLng(45.51,-122.68), 16)
-
-
-/*
 These are the marker locations and content associated with them.
 */
 const locations = [
@@ -73,21 +72,22 @@ locations.forEach(({ position, content }) => {
 	var marker = L.marker(position).addTo(map);
 
 	marker.on("click", function () {
-		document.getElementById("sidecontent").innerHTML = content;
-		openside();
+		openside(content);
 	});
 });
 
 /*
 These handle onclick actions for the sidebar.
 */
-function openside() {
+function openside(content) {
 	//Reveal side panel.
-	document.getElementById("mySide").style.width = "200px";
+	document.getElementById("mySide").hidden = false;
+	document.getElementById("sidecontent").innerHTML = content;
 }
 
+// called by button in map.html
 function closeside() {
 	//Hide side panel.
 	document.getElementById("sidecontent").innerHTML = "";
-	document.getElementById("mySide").style.width = "0px";
+	document.getElementById("mySide").hidden = true;
 }

@@ -12,12 +12,12 @@ body,
 
 .sidepanel {
   height: 100%;
-  width: 0;
+  width: 40%;
   position: fixed;
   z-index: 1001; /*Places side over map*/
   top: 0;
   left: 0;
-  background-color: rgb(95, 95, 95);
+  background-color: rgb(191, 201, 205);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -27,7 +27,7 @@ body,
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #000000;
+  color: #282929;
   display: block;
   transition: 0.3s;
 }
