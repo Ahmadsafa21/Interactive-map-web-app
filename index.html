@@ -27,6 +27,16 @@
         </p>
       </figcaption>
     </figure>
+    <button style="margin: 20px 0 0 3px; display:inline-block" onclick="increment()">Like!</button>
+    <div id="num_likes" style="margin: 0 0 0 3px; display:inline-block">0</div>
+    <script>
+      let count = 0;
+      const num_likes = document.getElementById("num_likes");
+      function increment(){
+        count++;
+        num_likes.innerText = count;
+      }
+    </script>
   </section>
 
   <section class="section section-seconday">
