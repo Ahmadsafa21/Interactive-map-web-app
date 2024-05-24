@@ -16,8 +16,6 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 // Initialize location to PSU Campus
 map.setView(L.latLng(45.51,-122.68), 16)
-// hide side panel at startup
-document.getElementById("mySide").hidden = true;
 
 
 /*
@@ -53,15 +51,18 @@ These are the marker locations and content associated with them.
 const locations = [
 	{
 		position: [45.51, -122.68],
-		content: `<img src='media/TEMP/dui-food-serving-vessel.jpg' width='300' height:'300'>`,
+		content: `<img src='media/TEMP/dui-food-serving-vessel.jpg'>
+		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
 	},
 	{
 		position: [45.51, -122.685],
-		content: `<img src='media/TEMP/hu-wine-container.jpg' width='300' height:'300'>`,
+		content: `<img src='media/TEMP/hu-wine-container.jpg'>
+		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
 	},
 	{
 		position: [45.515, -122.685],
-		content: `<img src='media/TEMP/chicken.jpg' width='500' height='500'>`,
+		content: `<img src='media/TEMP/chicken.jpg'>
+		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
 	},
 ];
 
@@ -81,13 +82,16 @@ These handle onclick actions for the sidebar.
 */
 function openside(content) {
 	//Reveal side panel.
-	document.getElementById("mySide").hidden = false;
+	document.getElementById("mySide").style.width = "40%";
 	document.getElementById("sidecontent").innerHTML = content;
 }
 
 // called by button in map.html
 function closeside() {
 	//Hide side panel.
+	document.getElementById("mySide").style.width = "0%";
+	
+	//This prevents the panel from removing content before sliding panel was gone.
+	sleep(0.5);
 	document.getElementById("sidecontent").innerHTML = "";
-	document.getElementById("mySide").hidden = true;
 }
