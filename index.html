@@ -1,147 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAC Virtual Tour</title>
-  <meta name="description" contant="sample text">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Interactive Map</title>
+    <!--Order matters. Link first, then script.-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" href="map/map.css" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="sanitize.css">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  
-
-  <section class="section">
-    <h1 class="section-headline">MAC Virtual Tour</h1>
-    <figure class="about">
-      <img class="about-image" src="https://dummyimage.com/600x400/000/fff" alt="About image">
-      <figcaption class="about-caption">
-        <h2 class="about-headline">Welcome</h2>
-        <p class="about-description">
-          Map will be placed left</br>
-        </p>
-      </figcaption>
-    </figure>
-    <button style="margin: 20px 0 0 3px; display:inline-block" onclick="increment()">Like!</button>
-    <div id="num_likes" style="margin: 0 0 0 3px; display:inline-block">0</div>
-    <script>
-      let count = 0;
-      const num_likes = document.getElementById("num_likes");
-      function increment(){
-        count++;
-        num_likes.innerText = count;
-      }
-    </script>
-  </section>
-
-  <section class="section section-seconday">
-    <h1 class="section-headline">Feature</h1>
-
-    <ul class="grid grid-col-2">
-      <li class="grid-item">
-        <dl class="feature">
-          <dt class="feature-headline" class="feature-headline">Interactive map</dt>
-          <dd class="feature-image">
-            <image src="001-settings.png" width="100" high="100" alt="Interactive map">
-          </dd>
-          <dd class="feature-description">Text Text Text Text Text Text....</dd>
-        </dl>
-      </li>
-      <li class="grid-item">
-        <dl class="feature">
-          <dt class="feature-headline">AR</dt>
-          <dd class="feature-image">
-            <image src="002-product.png" width="100" high="100" alt="AR">
-          </dd>
-          <dd class="feature-description">Text Text Text Text Text Text....</dd>
-        </dl>
-      </li>
-    </ul>
-
-
-  </section>
-
-  <section class="section">
-    <h1 class="section-headline">Multimedia</h1>
-
-    <ul class="grid grid-col-3">
-      <li class="grid-item">        
-         <article class="card">
-          <a href="#" class="card-link">
-            <span class="card-label">New</span>
-            <img class="card-image" src="https://dummyimage.com/200x100/000/fff" alt="thumbnail"></image>
-            <div class="card-info">
-              <time class="card-time" datetime="2024-05-01">2024.05.01</time>
-              <h1 class="card-headline">Let's dive into AR</h1>
-              <p calss="card-description">Text  text text text text text text text text text text</p>
-            </div>
-            <dl class="avator">
-              <dt class="avator-name">name</dt>
-              <dd class="avator-image">
-                <img src="https://dummyimage.com/50x50/000/fff" alt="Author"> 
-              </dd>
-            </dl>
-          </a>
-         </article>
-      </li>
-      <li class="grid-item">        
-        <article class="card">
-         <a href="#" class="card-link">
-           <span class="card-label">New</span>
-           <img class="card-image" src="https://dummyimage.com/200x100/000/fff" alt="thumbnail"></image>
-           <div class="card-info">
-             <time class="card-time" datetime="2024-05-01">2024.05.01</time>
-             <h1 class="card-headline">Voice</h1>
-             <p calss="card-description">Text  text text text text text text text text text text</p>
-           </div>
-           <dl class="avator">
-             <dt class="avator-name">name</dt>
-             <dd class="avator-image">
-               <img src="https://dummyimage.com/50x50/000/fff" alt="Author"> 
-             </dd>
-           </dl>
-         </a>
-        </article>
-     </li>
-     <li class="grid-item">        
-      <article class="card">
-       <a href="#" class="card-link">
-         <span class="card-label">New</span>
-         <img class="card-image" src="https://dummyimage.com/200x100/000/fff" alt="thumbnail"></image>
-         <div class="card-info">
-           <time class="card-time" datetime="2024-05-01">2024.05.01</time>
-           <h1 class="card-headline">Indetail Document</h1>
-           <p calss="card-description">Text  text text text text text text text text text text</p>
-         </div>
-         <dl class="avator">
-           <dt class="avator-name">name</dt>
-           <dd class="avator-image">
-             <img src="https://dummyimage.com/50x50/000/fff" alt="Author"> 
-           </dd>
-         </dl>
-       </a>
-      </article>
-
-
-   </li>
-    </ul>
-   <a href="index.html" class="button_inline" style="margin: 0 100px 0 0">
-    Home
-   </a>
-   <a href="about.html" class="button_inline" style="margin: 0 100px 0 0">
-    About the Project
-   </a>
-   <a href="https://en.wikipedia.org/wiki/Donation" class="button_inline" style="margin: 0 100px 0 0" target="_blank">
-    Donate
-   </a>
-  </section>
-
-
-  <script src="app.js"></script>
-</body>
+    <!--Navigation bar-->
+    <nav>
+      <div class="logo">
+        <h4>Jason washington</h4>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Map</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Donation</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <!--Doesn't matter where this div goes.-->
+    <div id="mySide" class="sidepanel">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeside()"
+        >&times;</a
+      >
+      <div id="sidecontent"></div>
+    </div>
+    <!--Attach map element, then import map script.-->
+    <div id="map"></div>
+    <script src="map/map.js"></script>
+  </body>
 </html>
