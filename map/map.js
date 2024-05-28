@@ -78,9 +78,6 @@ locations.forEach(({ position, content }) => {
 These handle onclick actions for the sidebar.
 */
 function openside(content) {
-	//Reveal side panel.
-	document.getElementById("mapSide").style.width = "40%";
-
 	//Checks screensize and call changewidth.
 	var x = matchMedia("(max-width: 768px)");
 	changeWidth(x);
