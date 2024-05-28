@@ -124,6 +124,18 @@ nav {
     overflow-x: hidden;
   }
 
+  html, body, #map {
+    --contentwidth: 100vw;
+  }
+
+  .sidepanel #sidecontent div {
+    width: var(--contentwidth);
+  }
+
+  .sidepanel #sidecontent img {
+    max-width: var(--contentwidth);
+  }
+
   .nav-links {
     position: absolute;
     right: 0;
