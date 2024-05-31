@@ -78,19 +78,40 @@ locations.forEach(({ position, content }) => {
 These handle onclick actions for the sidebar.
 */
 function openside(content) {
-  //Reveal side panel.
-  document.getElementById("mySide").style.width = "40%";
-  document.getElementById("sidecontent").innerHTML = content;
+	//Checks screensize and call changewidth.
+	var x = matchMedia("(max-width: 768px)");
+	changeWidth(x);
+	
+	//If user changes screensize while sidepanel is open.
+	x.addEventListener("change", function() {
+		if (document.getElementById("mapSide").style.width != "0%") {
+			changeWidth(x);
+		}
+	})
+	
+	//Assigns sidepanel content.
+	document.getElementById("sidecontent").innerHTML = content;
 }
 
-// called by button in map.html
+//Called by button in index.html and handles the closing of the button.
 function closeside() {
-  //Hide side panel.
-  document.getElementById("mySide").style.width = "0%";
+	//Hide side panel.
+	document.getElementById("mapSide").style.width = "0%";
+	
+	//Prevents the panel from removing content before sliding panel was gone.
+	sleep(0.5);
 
-  //This prevents the panel from removing content before sliding panel was gone.
-  sleep(0.5);
-  document.getElementById("sidecontent").innerHTML = "";
+	//Empties sidepanel content.
+	document.getElementById("sidecontent").innerHTML = "";
+}
+
+//Called by openside to change the width of the side panel depending on screen size.
+function changeWidth (x) {
+	if (x.matches) {	//If screensize < 768px
+		document.getElementById("mapSide").style.width = "100%";
+	} else {
+		document.getElementById("mapSide").style.width = "40%";
+	}
 }
 
 //Navigation bar
