@@ -4,9 +4,13 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 8vh;
-  background-color: #6a7f10;;
-  /* position: relative; */
-  /* z-index: 1002; */
+  background-color: #6a7f10;
+  position: fixed;
+  /* Fixed to the top */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Ensure navbar is on top */
 }
 
 .logo {
@@ -60,16 +64,18 @@ nav {
   }
 
   .nav-links {
-    position: absolute;
+    position: fixed;
+    /* Fixed positioning */
     right: 0;
     height: 92vh;
     top: 8vh;
-    background-color: #6a7f10;;
+    background-color: #6a7f10;
     flex-direction: column;
     align-items: center;
     width: 35%;
     transform: translateX(100%);
     z-index: 1003;
+    /* Ensure it stays on top */
   }
 
   .nav-links li {
