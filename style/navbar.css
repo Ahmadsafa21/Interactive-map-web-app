@@ -4,7 +4,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 8vh;
-  background-color: #364e8b;
+  background-color: #6a7f10;;
   /* position: relative; */
   /* z-index: 1002; */
 }
@@ -64,7 +64,7 @@ nav {
     right: 0;
     height: 92vh;
     top: 8vh;
-    background-color: #364e8b;
+    background-color: #6a7f10;;
     flex-direction: column;
     align-items: center;
     width: 35%;
