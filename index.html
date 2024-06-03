@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Interactive Map</title>
-    <!--Order matters. Link first, then script.-->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <link rel="stylesheet" href="style/map.css" />
-    <link rel="stylesheet" href="style/navbar.css" />
 
-    <!--Navigation bar-->
-    <nav>
-      <div class="logo">
-        <h4>Jason washington</h4>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Map</a></li>
-        <li><a href="about/about.html">About</a></li>
-        <li><a href="contact/contact.html">Contact</a></li>
-        <li><a href="donation/donation.html">Donation</a></li>
-      </ul>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </nav>
-  </head>
-  <body>
-    <!--Doesn't matter where this div goes.-->
-    <div id="mapSide" class="sidepanel">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeside()"
-        >&times;</a
-      >
-      <div id="sidecontent"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Interactive Map</title>
+  <!--Order matters. Link first, then script.-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="style/map.css" />
+  <link rel="stylesheet" href="style/navbar.css" />
+</head>
+
+<body>
+  <!--Navigation bar-->
+  <nav>
+    <div class="logo">
+      <h4>Jason Washington</h4>
     </div>
-    <!--Attach map element, then import map script.-->
-    <div id="map"></div>
-    <script src="map/map.js"></script>
-  </body>
+    <ul class="nav-links">
+      <li><a href="index.html">Map</a></li>
+      <li><a href="about/about.html">About</a></li>
+      <li><a href="contact/contact.html">Contact</a></li>
+      <li><a href="donation/donation.html">Donation</a></li>
+    </ul>
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+  <!--Side panel-->
+  <div id="mapSide" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeside()">&times;</a>
+    <div id="sidecontent"></div>
+  </div>
+  <!--Map container-->
+  <div id="map"></div>
+  <script src="map/map.js"></script>
+</body>
+
 </html>
