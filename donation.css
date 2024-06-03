@@ -1,26 +1,24 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: space-between;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .donation-link {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: green;
+    background-color: #6a7f10;
     color: white;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .footer {
-    background-color: #f8f9fa;
     padding: 10px;
     text-align: center;
 }
@@ -30,7 +28,7 @@ nav {
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background-color: #364e8b;
+    background-color: #6a7f10;
     /* position: relative; */
     /* z-index: 1002; */
   }
@@ -58,7 +56,7 @@ nav {
   }
   .nav-links li a:hover{
     text-decoration: underline;
-    color: green
+    color: white
 }
   
   .burger {
@@ -94,7 +92,7 @@ nav {
       right: 0;
       height: 92vh;
       top: 8vh;
-      background-color: #364e8b;
+      background-color: #6a7f10;
       flex-direction: column;
       align-items: center;
       width: 35%;
@@ -110,5 +108,4 @@ nav {
       display: block;
     }
   }
-  
-  
+
