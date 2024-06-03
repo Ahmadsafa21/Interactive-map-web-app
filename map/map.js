@@ -14,7 +14,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Initialize location to PSU Campus
-map.setView(L.latLng(45.51, -122.68), 16);
+map.setView(L.latLng(45.51, -122.69), 16);
 
 /*
 This section asks users for their location.
@@ -47,20 +47,58 @@ These are the marker locations and content associated with them.
 */
 const locations = [
   {
-    position: [45.51, -122.68],
-    content: `<img src='map/media/TEMP/dui-food-serving-vessel.jpg'>
-		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
+    // tree/marker
+    position: [45.50990, -122.68458],
+    content: `<div>
+    <p><img src='media/accountability marker.jpg'><img src='media/memorial_tree.jpg'></p>
+    <p>Washington Family Memorial Tree and PSU Accountability Marker</p>
+    <p>Immediately following the shooting death of Jason Washington, the members of his family marked the spot on SW College Street near Broadway.  Jason had been on the ground near the tree on the south side of the street.  The family decorated the tree and made it a living memorial for the many, many people who pass on that street everyday, especially for the PSU Students who lived in the Broadway Building and whose back exit faces the tree.  The tree is sometimes adorned with holiday decorations that change with the seasons.  Family members also leave remembrances and messages for Jason attached to the tree.  The location, marked by the tree, has since 2018 served as a site for activism, marches, vigils and other commemorative events connected to Jason’s memory.</p>
+    <p>Guided by family member Kayla Washington, the university’s memorial art committee created a permanent accountability marker at the location.  The marker states in very plain language the actions of PSU campus police that ended Jason Washington’s life on the night of June 29, 2018 as to leave no doubt as to how he died.  The marker also features a rendering of the tree, honoring the family’s dedication to memorializing their loved one.</p>
+    <p><a href=https://www.pdx.edu/jason-washington-art-committee target='_blank'>Learn more about the Memorial Art Committee</a></p>
+    </div>`
   },
   {
-    position: [45.51, -122.685],
-    content: `<img src='map/media/TEMP/hu-wine-container.jpg'>
-		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
+    // cheerful tortiose
+    position: [45.51013, -122.68376],
+    content: `<div>
+    <p><img src='media/Cheerful_Tortoise.jpg'></p>
+    <p>The Cheerful Tortoise neighborhood pub has been a staple location for PSU students, faculty and staff since the mid-1960s.  Many threads of university history thread through the Cheerful Tortoise, from celebrations, meetings, and even the teaching of courses.  The Cheerful Tortoise figures in the story of Jason Washington’s life as it was the last establishment he and his friends visited before their fateful encounter with campus police on SW College Street just outside its door. </p>
+    <p><a href=https://cheerfultortoise.com/ target='_blank'>Cheerful Tortoise's website</a></p>
+    
+    </div>`
   },
   {
-    position: [45.515, -122.685],
-    content: `<img src='map/media/TEMP/chicken.jpg'>
-		<div>The cat (Felis catus), commonly referred to as the domestic cat or house cat, is a small domesticated carnivorous mammal. It is the only domesticated species of the family Felidae. Recent advances in archaeology and genetics have shown that the domestication of the cat occurred in the Near East around 7500 BC. It is commonly kept as a house pet and farm cat, but also ranges freely as a feral cat avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. Its retractable claws are adapted to killing small prey like mice and rats. It has a strong, flexible body, quick reflexes, sharp teeth, and its night vision and sense of smell are well developed. It is a social species, but a solitary hunter and a crepuscular predator. Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling, and grunting as well as cat body language. It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. It secretes and perceives pheromones.</div>`,
+    //  millar library
+    position: [45.51162, -122.68604],
+    content: `<div>
+    <p><img src='media/Special_Collections_Image.jpg'></p>
+    <audio controls>
+      <source src="media/Special Collections Description for Interactive Map.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    <p>Jason Washington Memorial Archive for Justice</p>
+    <p>Millar Library’s Special Collections department is home to a new body of materials: The Jason Washington Memorial Archive for Justice.</p>
+    <p>This collection is an ongoing project by student researchers begun in memory of Jason Washington (1973-2018) who was shot by Portland State University police. Our mission is to document the life of Jason Washington, a Navy veteran and resident of the neighborhood, a postal worker, father, and husband.  The project aims to foster teaching, research, and service to preserve Jason Washington’s memory and to advance activism for racial justice on campus and in the community.</p>
+    <p><a href='https://library.pdx.edu/research/special-collections-university-archives/' target='_blank'>Learn more about the special collection.</a></p>
+    </div>`
   },
+  {
+    // SMSU mural
+    position: [45.51190, -122.68426],
+    content: `<div>
+    <p><img src='media/Kyra_Watkins_Muralist.jpg'></p>
+    <p>Local muralist Kyra Watkins served as artist in residence during the academic year 2023-24. She was selected by the Washington family and the memorial committee to complete an artistic biographical remembrance of Jason for installation in the second floor mezzanine of the Smith Memorial Student Union on the Portland State University campus.  Kyra Watkins is a highly experienced muralist and an expert portraitist, truly gifted in rendering the face and expressiveness.  The mural measures 12 x 10 and its design was inspired by the artist’s many interactions with the Washington family during her residency as well as by numerous photos, videos, and remembrances of Jason in life.</p>
+    </div>`
+  },
+  {
+    // CPSO
+    position: [45.51218, -122.68328],
+    content: `<div>
+    <p><img src='media/2024.05.23_CPSO_sign_3.jpeg'></p>
+    <p>Campus Public Safety Office</p>
+    <p>From its ground-breaking in 1966, this building was called Koinonia House.  It was owned by Portland Campus Ministries, a consortium of eight different denominations that did outreach and service provision to the campus and the neighborhood.  In the 1970s, Koinonia housed services for military veterans and it has also served as classroom space.  PSU purchased the building in 2006, part of its long-term plan to grow eastward from the south park blocks in downtown and develop a “university district.”  Since 2012, the building has served as the campus public safety office.  In September, 2018, student activists camped in front of CPSO for two weeks in protest of the shooting of Jason Washington in June of that year.  Montgomery Street between SW Broadway and 6th Avenues was closed to traffic and turned into a pedestrian mall around 2019, and is the site of frequent events, gatherings, demonstrations, and other campus-related activities.</p>
+    </div>`
+  }
 ];
 
 /*
