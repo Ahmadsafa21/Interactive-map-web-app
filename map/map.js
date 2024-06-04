@@ -90,8 +90,10 @@ const locations = [
     // SMSU mural
     position: [45.51190, -122.68426],
     content: `<img src='media/Kyra_Watkins_Muralist.jpg'>
-	<div
+	<div>
     <p>Local muralist Kyra Watkins served as artist in residence during the academic year 2023-24. She was selected by the Washington family and the memorial committee to complete an artistic biographical remembrance of Jason for installation in the second floor mezzanine of the Smith Memorial Student Union on the Portland State University campus.  Kyra Watkins is a highly experienced muralist and an expert portraitist, truly gifted in rendering the face and expressiveness.  The mural measures 12 x 10 and its design was inspired by the artist’s many interactions with the Washington family during her residency as well as by numerous photos, videos, and remembrances of Jason in life.</p>
+	<a href='media/Kyra_Watkins_Interview.pdf'>Download Interview</a>
+	<embed src='media/Kyra_Watkins_Interview.pdf' type='application/pdf' class='responsive' width="100%" height="100%">
     </div>`
   },
   {
@@ -140,11 +142,8 @@ function closeside() {
 	//Hide side panel.
 	document.getElementById("mapSide").style.width = "0%";
 	
-	//Prevents the panel from removing content before sliding panel was gone.
-	sleep(0.5);
-
 	//Empties sidepanel content.
-	document.getElementById("sidecontent").innerHTML = "";
+	setTimeout(function() {document.getElementById("sidecontent").innerHTML = ""; }, 500)
 }
 
 //Called by openside to change the width of the side panel depending on screen size.
@@ -155,6 +154,7 @@ function changeWidth (x) {
 		document.getElementById("mapSide").style.width = "40%";
 	}
 }
+
 
 //Navigation bar
 const burger = document.querySelector(".burger");
