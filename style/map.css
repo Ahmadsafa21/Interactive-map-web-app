@@ -43,8 +43,8 @@ html, body, #map {
 
 .sidepanel #sidecontent img {
   max-width: var(--contentwidth);
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  display: block;
 }
 
 .sidepanel #sidecontent div {
