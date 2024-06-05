@@ -17,22 +17,14 @@ html, body, #map {
   top: 0;
   bottom: 0;
   left: 0;
-  background-color: rgb(191, 201, 205);
+  background-color: #ffffff;
   overflow-x: hidden;
   overflow-y: scroll;
   transition: 0.5s;
 }
 
 .sidepanel a {
-  padding: 8px 8px 8px 32px;
-  position: fixed;
-  text-decoration: none;
-  text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
-  font-size: 25px;
-  color: #ffffff;
   display: block;
-  transition: 0.3s;
-  z-index: 1002;
 }
 
 .sidepanel #sidecontent {
@@ -43,8 +35,8 @@ html, body, #map {
 
 .sidepanel #sidecontent img {
   max-width: var(--contentwidth);
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  display: block;
 }
 
 .sidepanel #sidecontent div {
@@ -55,11 +47,16 @@ html, body, #map {
 }
 
 .sidepanel .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+  position: sticky;
+  text-align: right;
+  margin: -8px 5% -8px 85%;
+  top: -8px;
+  font-size: 44px;
+  text-decoration: none;
+  text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+  /*font-size: 25px;*/
+  color: #ffffff;
+  z-index: 1002;
 }
 
 @media screen and (max-width: 768px) {
