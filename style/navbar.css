@@ -29,16 +29,21 @@ nav {
   transition: all 0.5s ease-in-out;
   font-size: 18px;
   font-family: 'Open Sans';
+
 }
 
 .nav-links li {
   list-style: none;
+  margin: 30px;
+
 }
 
 .nav-links a {
   text-decoration: none;
   color: white;
   font-weight: bold;
+
+
 }
 
 .burger {
@@ -71,6 +76,7 @@ nav {
 
   .nav-links {
     position: fixed;
+    justify-content: flex-start;
     /* Fixed positioning */
     right: 0;
     height: 92vh;
@@ -86,6 +92,8 @@ nav {
 
   .nav-links li {
     opacity: 0;
+    margin: 30px;
+
   }
 
   .burger {

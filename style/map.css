@@ -49,6 +49,7 @@ body,
   width: var(--contentwidth);
   padding: 30px 30px;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 .sidepanel .closebtn {
