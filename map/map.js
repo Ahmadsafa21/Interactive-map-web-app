@@ -5,7 +5,11 @@ const USER_LOCATION = false; // ask user for location on start
 /*
 This section creates the map.
 */
-var map = L.map("map", {zoomControl: false}).fitWorld();
+var map = L.map("map", {
+  minZoom: 14,
+  zoomControl: false,
+  maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
+}).fitWorld();
 
 //Can use other maps.
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -18,7 +22,7 @@ L.control.zoom({
 }).addTo(map);
 
 // Initialize location to PSU Campus
-map.setView(L.latLng(45.511477, -122.683545), 16);
+map.setView(L.latLng(45.5118, -122.6843), 16);
 
 /*
 This section asks users for their location.
