@@ -15,9 +15,11 @@ nav {
 
 .logo {
   color: white;
-  font-size: 25px;
+  /* font-size: 25px; */
+  font-size: 3vh;
   font-family: 'Open Sans';
   text-align: center;
+  z-index: 2000;
   /*padding: 10px;
   margin: 0;*/
 }
@@ -79,8 +81,8 @@ nav {
     justify-content: flex-start;
     /* Fixed positioning */
     right: 0;
-    height: 92vh;
-    top: 8vh;
+    height: 90vh;
+    top: 10vh;
     background-color: #6a7f10;
     flex-direction: column;
     align-items: center;
@@ -93,7 +95,7 @@ nav {
   .nav-links li {
     opacity: 0;
     margin: 30px;
-
+    font-size: 4vh;
   }
 
   .burger {
