@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 25px;
+    font-family: 'Open Sans';
+    text-align: center;
+    /*padding: 10px;
+    margin: 0;*/
+  }
+  
+  p {
+    margin: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    text-align: left;
+    line-height: 2;
+    font-family: sans-serif;
+  }
+  
+  @media (max-width: 768px) {
+    p {
+      margin: 10px;
+      /* Reduced margin for tighter spacing */
+      margin-left: 50px;
+      /* Smaller left margin */
+      margin-right: 50px;
+      /* Smaller right margin */
+      text-align: left;
+      /* Keeps text aligned to the left */
+      line-height: 1.5;
+      /* Slightly reduced line height for mobile */
+      font-family: sans-serif;
+    }
+  }
+  
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+  }
+  
+  .container {
+    /* navigation bar */
+    position: relative;
+    top: 190px;
+    padding: 20px;
+    text-align: center;
+    font-family: sans-serif;
+  }
+  
+  .footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
