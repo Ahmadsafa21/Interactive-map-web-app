@@ -50,33 +50,64 @@ This section handles failing to get user location.
 }
 //end USER_LOCATION flag
 
+async function placeMarkers() {
+  const url = "map/markers.json";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    locations = locationsJson = await response.json();
+    console.log(locations)
+    locations.forEach(({ position, content }) => {
+      var marker = L.marker(position).addTo(map);
+    
+      marker.on("click", function () {
+        openside(content);
+      });
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+placeMarkers()
+
+
+
+
+
+// fetch("map/markers.json")
+//   .then(response => response.json)
+//   .then(json => console.log(json));
+
+
 /*
 This loads the markers' data from a JSON file, then places the markers on the map
 */
-document.addEventListener("DOMContentLoaded", () => {
-    fetch('map/markers.json', {mode : 'no-cors'}) //using this causes the fetch to fail for some reason. no-cors issue?
-    //fetch('map/markers.json') //using this gives a cors error
-        .then(response => {
-          if (!response.ok){
-            throw new Error("response not ok");
-          }
-          return response.json();
-        })
-        .then(console.log)
-        .then(data => {
-            const locations = data;
-            console.log(locations);
+// document.addEventListener("DOMContentLoaded", () => {
+//     // fetch('map/markers.json', {mode : 'no-cors'}) //using this causes the fetch to fail for some reason. no-cors issue?
+//     fetch('map/markers.json') //using this gives a cors error
+//         .then(response => {
+//           if (!response.ok){
+//             throw new Error("response not ok");
+//           }
+//           return response.json();
+//         })
+//         .then(console.log)
+//         .then(data => {
+//             const locations = data;
+//             console.log(locations);
 
-            //This places the markers on the map and changes the onclick behavior.
-            locations.forEach(({ position, content }) => {
-              var marker = L.marker(position).addTo(map);
-              marker.on("click", function () {
-                openside(content);
-                });
-            });
-        })
-        .catch(error => console.error('Error fetching JSON:', error));
-});
+//             //This places the markers on the map and changes the onclick behavior.
+//             locations.forEach(({ position, content }) => {
+//               var marker = L.marker(position).addTo(map);
+//               marker.on("click", function () {
+//                 openside(content);
+//                 });
+//             });
+//         })
+//         .catch(error => console.error('Error fetching JSON:', error));
+// });
 
 /*
 These handle onclick actions for the sidebar.
