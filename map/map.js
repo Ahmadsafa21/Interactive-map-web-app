@@ -54,8 +54,8 @@ This section handles failing to get user location.
 This loads the markers' data from a JSON file, then places the markers on the map
 */
 document.addEventListener("DOMContentLoaded", () => {
-    //fetch('map/markers.json', {mode : 'no-cors'}) //using this causes the fetch to fail for some reason. another cors issue?
-    fetch('map/markers.json') //using this gives a cors error
+    fetch('map/markers.json', {mode : 'no-cors'}) //using this causes the fetch to fail for some reason. no-cors issue?
+    //fetch('map/markers.json') //using this gives a cors error
         .then(response => {
           if (!response.ok){
             throw new Error("response not ok");
