@@ -19,4 +19,3 @@ burger.addEventListener("click", () => {
 
 
 document.getElementById('searchButton').addEventListener('click', searchMarker);
-
