@@ -1,19 +1,20 @@
-/*
-This section creates the map.
-*/
+//This function creates the map.
 var loadMap = function (id) {
+  
+  //Create map, can't zoom in too much, and force users to stay in Portland.
   var map = L.map(id, {
     minZoom: 14,
     zoomControl: false,
     maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
   }).fitWorld();
 
-  //Can use other maps.
+  //Can use other maps. Adds attribution to currently used map - openstreetmaps.
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "© OpenStreetMap",
   }).addTo(map);
 
+  //Move zoom controls to bottom right of map.
   L.control.zoom({
     position: 'bottomright'
   }).addTo(map);
@@ -21,15 +22,10 @@ var loadMap = function (id) {
   // Initialize location to PSU Campus
   map.setView(L.latLng(45.5118, -122.6843), 16);
 
-  /*
-  This section asks users for their location.
-  */
-  var curr_pos, curr_acc;
+  var curr_pos, curr_acc; //Used to track user location.
 
+  //If location found, delete previous location marker and set new marker.
   function onLocationFound(e) {
-    //console.log("Location found.")
-    //console.log(e)
-
     var radius = e.accuracy;
 
     if (curr_pos){
@@ -41,14 +37,15 @@ var loadMap = function (id) {
     curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
   }
 
+  //If not found, send console error. A few errors are to be expected.
   function onLocationError(e) {
     console.error("Location found error.")
   }
 
-  //Uses browser location data.
+  //Uses browser location data. Gets called as user location data changes (i.e. it's live data).
   navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-    maximumAge: 100,
-    timeout: 200
+    maximumAge: 1000,
+    timeout: 2000
   })
 };
 loadMap("map");
@@ -80,13 +77,12 @@ async function placeMarkers() {
 placeMarkers()
 
 
-/*
-These handle onclick actions for the sidebar.
-*/
+//These handle onclick actions for the sidebar.
 function openside(content) {
 	var x = matchMedia("(max-width: 768px)");
 	changeWidth(x);
 	
+  //Watch for browser size changes, including if user flips phone.
 	x.addEventListener("change", function() {
 		if (document.getElementById("mapSide").style.width != "0%") {
 			changeWidth(x);
@@ -98,9 +94,8 @@ function openside(content) {
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
-	document.getElementById("mapSide").style.width = "0%";
-	
-	setTimeout(function() {document.getElementById("sidecontent").innerHTML = ""; }, 500)
+	document.getElementById("mapSide").style.width = "0%"; //Hide panel.
+	setTimeout(function() {document.getElementById("sidecontent").innerHTML = ""; }, 500) //Remove content after .5 sec.
 }
 
 //Called by openside to change the width of the side panel depending on screen size.
