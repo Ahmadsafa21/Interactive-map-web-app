@@ -1,57 +1,54 @@
+// FLAGS
+const DEBUG = false;
+const USER_LOCATION = false; // ask user for location on start
+
 /*
 This section creates the map.
 */
-var loadMap = function (id) {
-  var map = L.map(id, {
-    minZoom: 14,
-    zoomControl: false,
-    maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
-  }).fitWorld();
+var map = L.map("map", {
+  minZoom: 14,
+  zoomControl: false,
+  maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
+}).fitWorld();
 
-  //Can use other maps.
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap",
-  }).addTo(map);
+//Can use other maps.
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "© OpenStreetMap",
+}).addTo(map);
 
-  L.control.zoom({
-    position: 'bottomright'
-  }).addTo(map);
+L.control.zoom({
+	position: 'bottomright'
+}).addTo(map);
 
-  // Initialize location to PSU Campus
-  map.setView(L.latLng(45.5118, -122.6843), 16);
+// Initialize location to PSU Campus
+map.setView(L.latLng(45.5118, -122.6843), 16);
 
-  /*
-  This section asks users for their location.
-  */
-  var curr_pos, curr_acc;
-
+/*
+This section asks users for their location.
+*/
+if (USER_LOCATION) {
+  map.locate({ setView: true, maxZoom: 15 });
   function onLocationFound(e) {
-    //console.log("Location found.")
-    //console.log(e)
-
     var radius = e.accuracy;
 
-    if (curr_pos){
-      map.removeLayer(curr_acc);
-      map.removeLayer(curr_pos);
-    }
+    L.marker(e.latlng).addTo(map);
+    //.bindPopup("You are within " + radius + " meters from this point")
+    //.openPopup();
 
-    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map)
-    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
+    L.circle(e.latlng, radius).addTo(map);
   }
+  map.on("locationfound", onLocationFound);
 
+  /*
+This section handles failing to get user location.
+*/
   function onLocationError(e) {
-    console.error("Location found error.")
+    alert(e.message);
   }
-
-  //Uses browser location data.
-  navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-    maximumAge: 100,
-    timeout: 200
-  })
-};
-loadMap("map");
+  map.on("locationerror", onLocationError);
+}
+//end USER_LOCATION flag
 
 
 /*
@@ -84,22 +81,27 @@ placeMarkers()
 These handle onclick actions for the sidebar.
 */
 function openside(content) {
+	//Checks screensize and call changewidth.
 	var x = matchMedia("(max-width: 768px)");
 	changeWidth(x);
 	
+	//If user changes screensize while sidepanel is open.
 	x.addEventListener("change", function() {
 		if (document.getElementById("mapSide").style.width != "0%") {
 			changeWidth(x);
 		}
 	})
 	
+	//Assigns sidepanel content.
 	document.getElementById("sidecontent").innerHTML = content;
 }
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
+	//Hide side panel.
 	document.getElementById("mapSide").style.width = "0%";
 	
+	//Empties sidepanel content.
 	setTimeout(function() {document.getElementById("sidecontent").innerHTML = ""; }, 500)
 }
 
