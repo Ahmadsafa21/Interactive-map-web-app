@@ -159,4 +159,13 @@ function changeWidth(x) {
   }
 }
 
-
+function searchMarker() {
+  var input = document.getElementById('searchInput').value.trim().toLowerCase();
+  var marker = markers[input];
+  if (marker) {
+    map.setView(marker.getLatLng(), 17);  // Adjust the zoom level as needed
+    marker.openPopup();
+  } else {
+    alert('Marker not found! Try different keywords.');
+  }
+}

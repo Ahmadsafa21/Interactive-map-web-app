@@ -10,10 +10,13 @@ burger.addEventListener("click", () => {
     if (link.style.animation) {
       link.style.animation = "";
     } else {
-      link.style.animation = `navLinksFade 0.5s ease forwards ${
-        index / 7 + 0.4
-      }s`;
+      link.style.animation = `navLinksFade 0.5s ease forwards ${index / 7 + 0.4
+        }s`;
     }
   });
   burger.classList.toggle("toggle");
 });
+
+
+document.getElementById('searchButton').addEventListener('click', searchMarker);
+
