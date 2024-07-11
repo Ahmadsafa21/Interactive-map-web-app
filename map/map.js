@@ -8,6 +8,7 @@ This section creates the map.
 var map = L.map("map", {
   minZoom: 14,
   zoomControl: false,
+
   maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
 }).fitWorld();
 
@@ -16,6 +17,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: "© OpenStreetMap",
 }).addTo(map);
+
 
 L.control.zoom({
 	position: 'bottomright'
@@ -65,7 +67,7 @@ async function placeMarkers() {
     locations = locationsJson = await response.json();
     locations.forEach(({ position, content }) => {
       var marker = L.marker(position).addTo(map);
-    
+
       marker.on("click", function () {
         openside(content);
       });
@@ -81,6 +83,7 @@ placeMarkers()
 These handle onclick actions for the sidebar.
 */
 function openside(content) {
+
 	//Checks screensize and call changewidth.
 	var x = matchMedia("(max-width: 768px)");
 	changeWidth(x);
@@ -98,6 +101,7 @@ function openside(content) {
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
+
 	//Hide side panel.
 	document.getElementById("mapSide").style.width = "0%";
 	
@@ -114,4 +118,13 @@ function changeWidth (x) {
 	}
 }
 
-
+function searchMarker() {
+  var input = document.getElementById('searchInput').value.trim().toLowerCase();
+  var marker = markers[input];
+  if (marker) {
+    map.setView(marker.getLatLng(), 17);  // Adjust the zoom level as needed
+    marker.openPopup();
+  } else {
+    alert('Marker not found! Try different keywords.');
+  }
+}
