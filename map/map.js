@@ -1,36 +1,31 @@
-// FLAGS
-const DEBUG = false;
-const USER_LOCATION = false; // ask user for location on start
+//This function creates the map.
+var loadMap = function (id) {
+  
+  //Create map, can't zoom in too much, and force users to stay in Portland.
+  var map = L.map(id, {
+    minZoom: 14,
+    zoomControl: false,
+    maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
+  }).fitWorld();
 
-/*
-This section creates the map.
-*/
-var map = L.map("map", {
-  minZoom: 14,
-  zoomControl: false,
+  //Can use other maps. Adds attribution to currently used map - openstreetmaps.
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap",
+  }).addTo(map);
 
-  maxBounds: L.latLngBounds([[45.495, -122.724], [45.537, -122.645]])
-}).fitWorld();
+  //Move zoom controls to bottom right of map.
+  L.control.zoom({
+    position: 'bottomright'
+  }).addTo(map);
 
-//Can use other maps.
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: "© OpenStreetMap",
-}).addTo(map);
+  // Initialize location to PSU Campus
+  map.setView(L.latLng(45.5118, -122.6843), 16);
 
+  var curr_pos, curr_acc; //Used to track user location.
 
-L.control.zoom({
-  position: 'bottomright'
-}).addTo(map);
+  //If location found, delete previous location marker and set new marker.
 
-// Initialize location to PSU Campus
-map.setView(L.latLng(45.5118, -122.6843), 16);
-
-/*
-This section asks users for their location.
-*/
-if (USER_LOCATION) {
-  map.locate({ setView: true, maxZoom: 15 });
   function onLocationFound(e) {
     var radius = e.accuracy;
 
@@ -42,15 +37,20 @@ if (USER_LOCATION) {
   }
   map.on("locationfound", onLocationFound);
 
-  /*
-This section handles failing to get user location.
-*/
+  //If not found, send console error. A few errors are to be expected.
+
   function onLocationError(e) {
     alert(e.message);
   }
-  map.on("locationerror", onLocationError);
-}
-//end USER_LOCATION flag
+
+  //Uses browser location data. Gets called as user location data changes (i.e. it's live data).
+  navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    maximumAge: 1000,
+    timeout: 2000
+  })
+};
+loadMap("map");
+
 
 
 /*
@@ -80,28 +80,25 @@ async function placeMarkers() {
 placeMarkers()
 
 
-/*
-These handle onclick actions for the sidebar.
-*/
+//These handle onclick actions for the sidebar.
 function openside(content) {
+	var x = matchMedia("(max-width: 768px)");
+	changeWidth(x);
+	
+  //Watch for browser size changes, including if user flips phone.
+	x.addEventListener("change", function() {
+		if (document.getElementById("mapSide").style.width != "0%") {
+			changeWidth(x);
+		}
+	})
+	
+	document.getElementById("sidecontent").innerHTML = content;
 
-  //Checks screensize and call changewidth.
-  var x = matchMedia("(max-width: 768px)");
-  changeWidth(x);
-
-  //If user changes screensize while sidepanel is open.
-  x.addEventListener("change", function () {
-    if (document.getElementById("mapSide").style.width != "0%") {
-      changeWidth(x);
-    }
-  })
-
-  //Assigns sidepanel content.
-  document.getElementById("sidecontent").innerHTML = content;
 }
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
+
 
   //Hide side panel.
   document.getElementById("mapSide").style.width = "0%";
