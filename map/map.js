@@ -25,21 +25,22 @@ var loadMap = function (id) {
   var curr_pos, curr_acc; //Used to track user location.
 
   //If location found, delete previous location marker and set new marker.
+
   function onLocationFound(e) {
     var radius = e.accuracy;
 
-    if (curr_pos){
-      map.removeLayer(curr_acc);
-      map.removeLayer(curr_pos);
-    }
+    L.marker(e.latlng).addTo(map);
+    //.bindPopup("You are within " + radius + " meters from this point")
+    //.openPopup();
 
-    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map)
-    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
+    L.circle(e.latlng, radius).addTo(map);
   }
+  map.on("locationfound", onLocationFound);
 
   //If not found, send console error. A few errors are to be expected.
+
   function onLocationError(e) {
-    console.error("Location found error.")
+    alert(e.message);
   }
 
   //Uses browser location data. Gets called as user location data changes (i.e. it's live data).
@@ -49,6 +50,7 @@ var loadMap = function (id) {
   })
 };
 loadMap("map");
+
 
 
 /*
@@ -65,7 +67,8 @@ async function placeMarkers() {
     locations = locationsJson = await response.json();
     locations.forEach(({ position, content }) => {
       var marker = L.marker(position).addTo(map);
-    
+
+
       marker.on("click", function () {
         openside(content);
       });
@@ -90,21 +93,36 @@ function openside(content) {
 	})
 	
 	document.getElementById("sidecontent").innerHTML = content;
+
 }
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
-	document.getElementById("mapSide").style.width = "0%"; //Hide panel.
-	setTimeout(function() {document.getElementById("sidecontent").innerHTML = ""; }, 500) //Remove content after .5 sec.
+
+
+  //Hide side panel.
+  document.getElementById("mapSide").style.width = "0%";
+
+  //Empties sidepanel content.
+  setTimeout(function () { document.getElementById("sidecontent").innerHTML = ""; }, 500)
 }
 
 //Called by openside to change the width of the side panel depending on screen size.
-function changeWidth (x) {
-	if (x.matches) {	//If screensize < 768px
-		document.getElementById("mapSide").style.width = "100%";
-	} else {
-		document.getElementById("mapSide").style.width = "40%";
-	}
+function changeWidth(x) {
+  if (x.matches) {	//If screensize < 768px
+    document.getElementById("mapSide").style.width = "100%";
+  } else {
+    document.getElementById("mapSide").style.width = "40%";
+  }
 }
 
-
+function searchMarker() {
+  var input = document.getElementById('searchInput').value.trim().toLowerCase();
+  var marker = markers[input];
+  if (marker) {
+    map.setView(marker.getLatLng(), 17);  // Adjust the zoom level as needed
+    marker.openPopup();
+  } else {
+    alert('Marker not found! Try different keywords.');
+  }
+}
