@@ -19,28 +19,25 @@ var loadMap = function (id) {
     position: 'bottomright'
   }).addTo(map);
 
-  // Initialize location to PSU Campus
-  map.setView(L.latLng(45.5118, -122.6843), 16);
-
   var curr_pos, curr_acc; //Used to track user location.
 
   //If location found, delete previous location marker and set new marker.
-
   function onLocationFound(e) {
     var radius = e.accuracy;
 
-    L.marker(e.latlng).addTo(map);
-    //.bindPopup("You are within " + radius + " meters from this point")
-    //.openPopup();
+    if (curr_pos) {
+      map.removeLayer(curr_acc)
+      map.removeLayer(curr_pos)
+    }
 
-    L.circle(e.latlng, radius).addTo(map);
+    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
+    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
   }
   map.on("locationfound", onLocationFound);
 
   //If not found, send console error. A few errors are to be expected.
-
   function onLocationError(e) {
-    alert(e.message);
+    console.log("Location found error.");
   }
 
   //Uses browser location data. Gets called as user location data changes (i.e. it's live data).
@@ -48,36 +45,38 @@ var loadMap = function (id) {
     maximumAge: 1000,
     timeout: 2000
   })
+
+  // Initialize location to PSU Campus
+  map.setView(L.latLng(45.5118, -122.6843), 16);
+
+  /*
+  This loads the markers' data from a JSON file, then places the markers on the map
+  */
+  async function placeMarkers() {
+    const url = "map/markers.json";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      // markers are placed here
+      locations = locationsJson = await response.json();
+      locations.forEach(({ position, content }) => {
+        var marker = L.marker(position).addTo(map);
+
+
+        marker.on("click", function () {
+          openside(content);
+        });
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  placeMarkers()
 };
 loadMap("map");
 
-
-
-/*
-This loads the markers' data from a JSON file, then places the markers on the map
-*/
-async function placeMarkers() {
-  const url = "map/markers.json";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    // markers are placed here
-    locations = locationsJson = await response.json();
-    locations.forEach(({ position, content }) => {
-      var marker = L.marker(position).addTo(map);
-
-
-      marker.on("click", function () {
-        openside(content);
-      });
-    });
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-placeMarkers()
 
 
 //These handle onclick actions for the sidebar.
@@ -98,7 +97,6 @@ function openside(content) {
 
 //Called by button in index.html and handles the closing of the button.
 function closeside() {
-
 
   //Hide side panel.
   document.getElementById("mapSide").style.width = "0%";
