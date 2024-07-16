@@ -16,13 +16,27 @@ var formText = `
 `
 // import markers.json
 // iterate through
-    // set text elements, default values in formtext
-    // add to resultText
+	// set text elements, default values in formtext
+	// add to resultText
 // add final stuff to resultText (submit button)
 // apply
 
 
 function setForm() {
-    document.getElementById("adminBox").innerHTML = formText
+	document.getElementById("adminBox").innerHTML = formText
 }
 setForm()
+
+async function readMarkers() {
+	const url = "../map/markers.json";
+	try {
+		const response = await fetch(url);
+		if (!response.ok) {
+			throw new Error(`Response status: ${response.status}`);
+		}
+		return await response.json();
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+console.log(readMarkers());
