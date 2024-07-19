@@ -81,3 +81,12 @@ body,
     max-width: var(--contentwidth);
   }
 }
+
+.arrow-icon {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid black;
+  transform: rotate(45deg); /* Adjust the angle as needed */
+}
