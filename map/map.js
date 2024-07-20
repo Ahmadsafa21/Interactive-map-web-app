@@ -91,7 +91,6 @@ function helperGetDirection(targetLat, targetLon, target, map) {
   map.on('locationfound', onLocationFound); // Attach the event listener
   map.locate(); // Trigger location finding
   function onLocationFound(e) {
-    // Your existing logic here...
     var radius = e.accuracy;
     var userLatLng = L.latLng(45.5118, -122.6843);
 
@@ -100,7 +99,7 @@ function helperGetDirection(targetLat, targetLon, target, map) {
       map.removeLayer(arrowMarker); // Remove existing marker
       arrowMarker = null; // Reset marker reference
     }
-    // Your existing logic to add the arrow marker...
+    //add the arrow marker.
     var targetLatLng = L.latLng(targetLat, targetLon);
     var bearing = calculateBearing(userLatLng.lat, userLatLng.lng, targetLatLng.lat, targetLatLng.lng);
     var distance = calculateDistance(userLatLng.lat, userLatLng.lng, targetLatLng.lat, targetLatLng.lng);
