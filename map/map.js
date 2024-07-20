@@ -8,7 +8,7 @@ var loadMap = function (id) {
   var map = L.map(id, {
     minZoom: 14,
     zoomControl: false,
-    maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
+    //maxBounds: L.latLngBounds([[45.495, -122.724],[45.537, -122.645]])
   }).fitWorld();
 
   //Can use other maps. Adds attribution to currently used map - openstreetmaps.
@@ -32,8 +32,9 @@ var loadMap = function (id) {
       map.removeLayer(curr_acc)
       map.removeLayer(curr_pos)
     }
-    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
-    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
+    var userLatLng = L.latLng(45.5118, -122.6843)
+    curr_pos = L.marker({lat: userLatLng.lat, lng: userLatLng.lng}).addTo(map);
+    curr_acc = L.circle({lat: userLatLng.lat, lng: userLatLng.lng}, radius).addTo(map);
   }
   map.on("locationfound", onLocationFound);
 
@@ -81,9 +82,16 @@ var loadMap = function (id) {
 map = loadMap("map");
 //end USER_LOCATION flag
 
-var arrowMarker = null;
 function getDirection(targetLat, targetLon, target) {
-  map.on('locationfound', function(e) {
+  helperGetDirection(targetLat, targetLon, target, map)
+}
+
+var arrowMarker = null;
+function helperGetDirection(targetLat, targetLon, target, map) {
+  map.on('locationfound', onLocationFound); // Attach the event listener
+  map.locate(); // Trigger location finding
+  function onLocationFound(e) {
+    // Your existing logic here...
     var radius = e.accuracy;
     var userLatLng = L.latLng(45.5118, -122.6843);
 
@@ -109,13 +117,10 @@ function getDirection(targetLat, targetLon, target) {
     // Add the custom icon to the map and store reference
     arrowMarker = L.marker(userLatLng, { icon: arrowIcon }).addTo(map)
         .bindPopup("Distance to " + target + ": " + Math.round(distance) + " meters");
-  });
-
+  }
   map.on("locationerror", function(e) {
     alert(e.message);
   });
-
-  map.locate(); // Trigger location finding
 }
 
 //Calculate the bearing to point the arrow in the right direction
