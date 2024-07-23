@@ -23,16 +23,17 @@ var loadMap = function (id) {
       map.removeLayer(curr_acc)
       map.removeLayer(curr_pos)
     }
-    var userLatLng = L.latLng(45.5118, -122.6843); // Example user location
-    //curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
-    //curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
+   
+    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
+    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
     
-    curr_pos = L.marker({lat: userLatLng.lat, lng: userLatLng.lng}).addTo(map);
-    curr_acc = L.circle({lat: userLatLng.lat, lng: userLatLng.lng}, radius).addTo(map);
+     //var userLatLng = L.latLng(45.5118, -122.6843); // Example user location
+    //curr_pos = L.marker({lat: userLatLng.lat, lng: userLatLng.lng}).addTo(map);
+    //curr_acc = L.circle({lat: userLatLng.lat, lng: userLatLng.lng}, radius).addTo(map);
 
-    // Update arrow line if destinationMarker is set
+    // Update arrow if destinationMarker is set
     if(destinationMarker){
-      drawArrow(userLatLng, destinationMarker.position);
+      drawArrow(curr_pos.getLatLng(), destinationMarker.position);
     }
   }
 
@@ -85,12 +86,16 @@ var loadMap = function (id) {
     // Ensure positions are L.LatLng objects
     const fromLatLng = L.latLng(fromPosition.lat, fromPosition.lng);
     const toLatLng = L.latLng(toPosition.lat, toPosition.lng);
-
+    //Get distance and bearing for arrow to point in the right direction
+    
     var distance = calculateDistance(fromLatLng.lat, fromLatLng.lng, toLatLng.lat, toLatLng.lng);
+    var bearing = calculateBearing(fromLatLng.lat, fromLatLng.lng, toLatLng.lat, toLatLng.lng);
     if (arrowMarker !== null) {
       map.removeLayer(arrowMarker); // Remove existing marker
       arrowMarker = null; // Reset marker reference
     }
+
+    //This is a poly line code 
   /*
     // Proceed with drawing the polyline
     if (arrowLine) {
@@ -105,8 +110,7 @@ var loadMap = function (id) {
     }).addTo(map)
     .bindPopup("Distance is " + Math.round(distance) + " meters");
     */
-    var bearing = calculateBearing(fromLatLng.lat, fromLatLng.lng, toLatLng.lat, toLatLng.lng);
-  
+
     var ArrowIcon = L.DivIcon.extend({
         createIcon: function() {
             var div = document.createElement('div');
@@ -127,40 +131,6 @@ var loadMap = function (id) {
 loadMap("map");
 //end USER_LOCATION flag
 
-/*function getDirection(targetLat, targetLon, target) {
-  helperGetDirection(targetLat, targetLon, target)
-*/
-/*var arrowIcon = null
-function getDirection(targetLat, targetLon, target) {
-  function onLocationFound(e) {
-    var radius = e.accuracy;
-    var userLatLng = L.latLng(45.5118, -122.6843);
-  
-    // Check if arrowMarker already exists
-    if (arrowMarker !== null) {
-      map.removeLayer(arrowMarker); // Remove existing marker
-      arrowMarker = null; // Reset marker reference
-    }
-    //add the arrow marker.
-    var targetLatLng = L.latLng(targetLat, targetLon);
-    var bearing = calculateBearing(userLatLng.lat, userLatLng.lng, targetLatLng.lat, targetLatLng.lng);
-    var distance = calculateDistance(userLatLng.lat, userLatLng.lng, targetLatLng.lat, targetLatLng.lng);
-  
-    var ArrowIcon = L.DivIcon.extend({
-        createIcon: function() {
-            var div = document.createElement('div');
-            div.innerHTML = '<div class="arrow-icon" style="transform: rotate(' + bearing + 'deg);"></div>';
-            return div;
-        }
-    });
-    var arrowIcon = new ArrowIcon();
-  
-    // Add the custom icon to the map and store reference
-    arrowMarker = L.marker(userLatLng, { icon: arrowIcon }).addTo(map)
-        .bindPopup("Distance to " + target + ": " + Math.round(distance) + " meters");
-  }
-}
-*/
 //Calculate the bearing to point the arrow in the right direction
 function calculateBearing(startLat, startLng, endLat, endLng) {
   const startLatRad = startLat * Math.PI / 180;
