@@ -83,10 +83,22 @@ body,
 }
 
 .arrow-icon {
+  position: relative;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 20px solid black;
-  transform: rotate(45deg); /* Adjust the angle as needed */
+  /*transform: rotate(45deg); /* Adjust the angle as needed */
+}
+
+.arrow-icon::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  transform: translateY(25%); /* Adjust for precise vertical centering */
+  left: calc(50% - 2.5px);
+  width: 5px;
+  height: 25px;
+  background-color:black;
 }

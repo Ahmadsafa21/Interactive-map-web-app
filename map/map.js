@@ -24,12 +24,12 @@ var loadMap = function (id) {
       map.removeLayer(curr_pos)
     }
    
-    curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
-    curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
+    //curr_pos = L.marker({lat: e.coords.latitude, lng: e.coords.longitude}).addTo(map);
+    //curr_acc = L.circle({lat: e.coords.latitude, lng: e.coords.longitude}, radius).addTo(map);
     
-     //var userLatLng = L.latLng(45.5118, -122.6843); // Example user location
-    //curr_pos = L.marker({lat: userLatLng.lat, lng: userLatLng.lng}).addTo(map);
-    //curr_acc = L.circle({lat: userLatLng.lat, lng: userLatLng.lng}, radius).addTo(map);
+    var userLatLng = L.latLng(45.5118, -122.6843); // Example user location
+    curr_pos = L.marker({lat: userLatLng.lat, lng: userLatLng.lng}).addTo(map);
+    curr_acc = L.circle({lat: userLatLng.lat, lng: userLatLng.lng}, radius).addTo(map);
 
     // Update arrow if destinationMarker is set
     if(destinationMarker){
