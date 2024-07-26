@@ -47,7 +47,6 @@ const loadMap = function (id) {
   // If not found, send console error. A few errors are to be expected.
   function onLocationError(e) {
     console.error("Location found error:", e.message);
-    alert("Unable to retrieve your location.");
   }
 
   // Uses browser location data. Gets called as user location data changes (i.e. it's live data).
