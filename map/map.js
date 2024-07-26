@@ -102,6 +102,13 @@ function openside(content) {
     }
   });
 
+  let pageurl = 'https://ahmadsafa21.github.io/Interactive-map-web-app/';
+  content = content.slice(0, -6) + `<p><a href="http://twitter.com/share?text=learn%20more&url=${pageurl}&hashtags=JasonWashington">T </a>`
+                                 + `<a href="https://www.facebook.com/sharer.php?u=${pageurl}">F </a>`
+                                 + `<a href="https://www.linkedin.com/shareArticle?mini=true&url=${pageurl}">L</a></p>`
+                                 + content.slice(-5);
+                            
+  console.log(content);
   document.getElementById("sidecontent").innerHTML = content;
 }
 
