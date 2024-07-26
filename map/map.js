@@ -9,7 +9,7 @@ const loadMap = function (id) {
   map = L.map(id, {
     minZoom: 14,
     zoomControl: false,
-    //maxBounds: L.latLngBounds([[45.495, -122.724], [45.537, -122.645]])
+    maxBounds: L.latLngBounds([[45.495, -122.724], [45.537, -122.645]])
   }).fitWorld();
 
   // Can use other maps. Adds attribution to currently used map - openstreetmaps.
