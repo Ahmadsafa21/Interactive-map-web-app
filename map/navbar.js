@@ -18,4 +18,15 @@ burger.addEventListener("click", () => {
 });
 
 
-document.getElementById('searchButton').addEventListener('click', searchMarker);
+document.addEventListener('DOMContentLoaded', function () {
+  // Event listener for the search button click
+  document.getElementById('searchButton').addEventListener('click', searchMarker);
+
+  // Event listener for pressing Enter in the search input field
+  document.getElementById('searchInput').addEventListener('keyup', function (event) {
+    if (event.key === "Enter") {  // Checks if the key pressed is the Enter key
+      searchMarker();          // Calls the searchMarker function
+    }
+  });
+});
+
