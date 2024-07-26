@@ -102,6 +102,14 @@ function openside(content) {
     }
   });
 
+  // Adds clickable social media links to the bottom of each marker.
+  let pageurl = 'https://ahmadsafa21.github.io/Interactive-map-web-app/';
+  content = content.slice(0, -6) + `<p style="display:flex; justify-content:space-around;"><a href="http://twitter.com/share?text=learn%20more&url=${pageurl}&hashtags=JasonWashington"><img src="../media/icons8-twitterx-32.png" style="width:32px;height32px;"/></a>`
+                                 + `<a href="https://www.facebook.com/sharer.php?u=${pageurl}"><img src="../media/icons8-facebook-48.png" style="width:32px;height32px;" /></a>`
+                                 + `<a href="https://www.linkedin.com/shareArticle?mini=true&url=${pageurl}"><img src="../media/icons8-linkedin-48.png" style="width:32px;height32px;"/></a></p>`
+                                 + content.slice(-6);
+ 
+  console.log(content);
   document.getElementById("sidecontent").innerHTML = content;
 }
 
