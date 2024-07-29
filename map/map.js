@@ -1,6 +1,22 @@
+// Define the default and highlighted marker icons
+const defaultIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+  iconSize: [25, 41], // size of the icon
+  iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+  popupAnchor: [1, -34] // point from which the popup should open relative to the iconAnchor
+});
+
+const highlightedIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34]
+});
+
 let map;
 let markers = {}; // Store marker data
 let leafletMarkers = {}; // Store Leaflet marker instances
+let originalMarker = null; // Store the original marker to revert icon
 
 const loadMap = function (id) {
   if (map) return; // Prevent reinitializing the map
@@ -68,7 +84,7 @@ const loadMap = function (id) {
       }
       const locations = await response.json();
       locations.forEach(({ position, content, name, aliases }) => {
-        const marker = L.marker(position).addTo(map);
+        const marker = L.marker(position, { icon: defaultIcon }).addTo(map);
         // Store the marker instance in leafletMarkers
         leafletMarkers[name.toLowerCase()] = marker;
         aliases.forEach(alias => {
@@ -76,6 +92,11 @@ const loadMap = function (id) {
         });
 
         marker.on("click", function () {
+          if (originalMarker) {
+            originalMarker.setIcon(defaultIcon);
+          }
+          originalMarker = marker;
+          marker.setIcon(highlightedIcon);
           openside(content);
           destinationMarker = marker; // Set clicked marker as destination
           
@@ -196,7 +217,14 @@ function closeside() {
   document.getElementById("mapSide").style.width = "0%";
 
   // Empties sidepanel content.
-  setTimeout(function () { document.getElementById("sidecontent").innerHTML = ""; }, 500);
+  setTimeout(function () {
+    document.getElementById("sidecontent").innerHTML = "";
+    // Revert marker icon to original icon
+    if (originalMarker) {
+      originalMarker.setIcon(defaultIcon);
+      originalMarker = null;
+    }
+  }, 500);
 }
 
 // Called by openside to change the width of the side panel depending on screen size.
@@ -216,6 +244,14 @@ function searchMarker() {
     if (map.flyTo) {
       // Fly to the marker position
       map.flyTo(markerData.position, 16); // Adjust zoom level as needed
+
+      // Change marker icon to highlighted icon
+      if (originalMarker) {
+        originalMarker.setIcon(defaultIcon);
+      }
+      originalMarker = markerData.marker;
+      markerData.marker.setIcon(highlightedIcon);
+
       // Simulate click on the marker
       markerData.marker.fire('click');
     } else {
@@ -225,3 +261,7 @@ function searchMarker() {
     alert('Marker not found. Try different keywords.');
   }
 }
+
+// Attach the searchMarker function to the search button
+document.getElementById('searchButton').addEventListener('click', searchMarker);
+
