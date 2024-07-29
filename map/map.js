@@ -39,7 +39,8 @@ const loadMap = function (id) {
     position: 'bottomright'
   }).addTo(map);
 
-  let curr_pos, curr_acc; // Used to track user location.
+  var curr_pos, curr_acc, destinationMarker; // Add destinationMarker and arrowMarker
+  var arrowMarker = null
 
   // If location found, delete previous location marker and set new marker.
   function onLocationFound(e) {
@@ -52,13 +53,16 @@ const loadMap = function (id) {
 
     curr_pos = L.marker({ lat: e.coords.latitude, lng: e.coords.longitude }).addTo(map);
     curr_acc = L.circle({ lat: e.coords.latitude, lng: e.coords.longitude }, radius).addTo(map);
+
+    if(destinationMarker){
+      drawArrow(curr_pos.getLatLng(), destinationMarker.position);
+    }
   }
   map.on("locationfound", onLocationFound);
 
   // If not found, send console error. A few errors are to be expected.
   function onLocationError(e) {
     console.error("Location found error:", e.message);
-    alert("Unable to retrieve your location.");
   }
 
   // Uses browser location data. Gets called as user location data changes (i.e. it's live data).
@@ -94,6 +98,13 @@ const loadMap = function (id) {
           originalMarker = marker;
           marker.setIcon(highlightedIcon);
           openside(content);
+          destinationMarker = marker; // Set clicked marker as destination
+          
+          // Ensure curr_pos is a valid LatLng object before calling drawArrow
+          if (curr_pos && curr_pos.getLatLng) {
+            const userPos = curr_pos.getLatLng(); // Get the current position as an L.LatLng object
+            drawArrow(userPos, marker.getLatLng()); // Pass LatLng objects to drawArrow
+          }
         });
 
         // Store marker data for searching
@@ -106,6 +117,39 @@ const loadMap = function (id) {
     } catch (error) {
       console.error("Error loading markers:", error.message);
     }
+  }
+
+  function drawArrow(fromPosition, toPosition) {
+    // Validate inputs
+    if (!fromPosition || !toPosition || typeof fromPosition.lat === 'undefined' || typeof toPosition.lat === 'undefined') {
+      console.error('Invalid positions provided to drawArrow');
+      return;
+    }
+  
+    // Ensure positions are L.LatLng objects
+    const fromLatLng = L.latLng(fromPosition.lat, fromPosition.lng);
+    const toLatLng = L.latLng(toPosition.lat, toPosition.lng);
+    //Get distance and bearing for arrow to point in the right direction
+    
+    var distance = calculateDistance(fromLatLng.lat, fromLatLng.lng, toLatLng.lat, toLatLng.lng);
+    var bearing = calculateBearing(fromLatLng.lat, fromLatLng.lng, toLatLng.lat, toLatLng.lng);
+    if (arrowMarker !== null) {
+      map.removeLayer(arrowMarker); // Remove existing marker
+      arrowMarker = null; // Reset marker reference
+    }
+
+    var ArrowIcon = L.DivIcon.extend({
+        createIcon: function() {
+            var div = document.createElement('div');
+            div.innerHTML = '<div class="arrow-icon" style="transform: rotate(' + bearing + 'deg);"></div>';
+            return div;
+        }
+    });
+    var arrowIcon = new ArrowIcon();
+  
+    // Add the custom icon to the map and store reference
+    arrowMarker = L.marker(fromLatLng, { icon: arrowIcon }).addTo(map)
+    .bindPopup("Distance is " + Math.round(distance) + " meters");
   }
   placeMarkers();
 };
@@ -123,7 +167,48 @@ function openside(content) {
     }
   });
 
+  // Adds clickable social media links to the bottom of each marker.
+  let pageurl = 'https://ahmadsafa21.github.io/Interactive-map-web-app/';
+  content = content.slice(0, -6) + `<p style="display:flex; justify-content:space-around;"><a href="http://twitter.com/share?text=learn%20more&url=${pageurl}&hashtags=JasonWashington"><img src="./../media/icons8-twitterx-32.png" style="width:32px;height32px;"/></a>`
+                                 + `<a href="https://www.facebook.com/sharer.php?u=${pageurl}"><img src="./../media/icons8-facebook-48.png" style="width:32px;height32px;" /></a>`
+                                 + `<a href="https://www.linkedin.com/shareArticle?mini=true&url=${pageurl}"><img src="./../media/icons8-linkedin-48.png" style="width:32px;height32px;"/></a></p>`
+                                 + content.slice(-6);
+ 
+  console.log(content);
   document.getElementById("sidecontent").innerHTML = content;
+}
+
+//Calculate the bearing to point the arrow in the right direction
+function calculateBearing(startLat, startLng, endLat, endLng) {
+  const startLatRad = startLat * Math.PI / 180;
+  const startLngRad = startLng * Math.PI / 180;
+  const endLatRad = endLat * Math.PI / 180;
+  const endLngRad = endLng * Math.PI / 180;
+
+  const y = Math.sin(endLngRad - startLngRad) * Math.cos(endLatRad);
+  const x = Math.cos(startLatRad) * Math.sin(endLatRad) - 
+            Math.sin(startLatRad) * Math.cos(endLatRad) * Math.cos(endLngRad - startLngRad);
+
+  const bearingRad = Math.atan2(y, x);
+  const bearingDeg = (bearingRad * 180 / Math.PI + 360) % 360; // Convert to degrees and normalize
+  return bearingDeg;
+}
+
+//Calculates the distance of the arrow to the target
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371e3; // Radius of the Earth in meters
+  const phi1 = lat1 * Math.PI / 180;
+  const phi2 = lat2 * Math.PI / 180;
+  const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+  const deltaLambda = (lng2 - lng1) * Math.PI / 180;
+
+  const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+            Math.cos(phi1) * Math.cos(phi2) *
+            Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c; // Distance in meters
+  return distance;
 }
 
 // Called by button in index.html and handles the closing of the button.
@@ -179,3 +264,4 @@ function searchMarker() {
 
 // Attach the searchMarker function to the search button
 document.getElementById('searchButton').addEventListener('click', searchMarker);
+
