@@ -1,20 +1,26 @@
 var formText = `
-		<form>
-			<label for="name">marker name</label><br>
-			<input type="text" id="name" name="name"><br>
-			<br>
-			<label for="position">marker position</label><br>
-			<input type="text" id="position" name="position"><br>
-			<br>
-			<label for="aliases">aliases (for searching)</label><br>
-			<input type="text" id="aliases" name="aliases"><br>
-			<br>
-			<label for="content">content</label><br>
-			<textarea rows="10" cols="50" name="content"></textarea>
-			<hr>
+		<form id="markerForm">
+		<div class="form-group">
+			<label for="name">Marker Name:</label>
+			<input type="text" id="name" name="name" required>
+		</div>
+		<div class="form-group">
+			<label for="position">Marker Position:</label>
+			<input type="text" id="position" name="position" required>
+		</div>
+		<div class="form-group">
+			<label for="aliases">Aliases (for searching):</label>
+			<input type="text" id="aliases" name="aliases" required>
+		</div>
+		<div class="form-group">
+			<label for="content">Content:</label>
+			<textarea id="content" name="content" rows="10" cols="50" required></textarea>
+		</div>
+		<div class="form-group">
 			<button type="submit">Submit</button>
-		</form>
-`
+		</div>
+	</form>
+`;
 // import markers.json
 // iterate through
 	// set text elements, default values in formtext
