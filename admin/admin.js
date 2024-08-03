@@ -6,7 +6,7 @@ var formText = `
 			<label for="position">marker position</label><br>
 			<input type="text" id="position" name="position"><br>
 			<br>
-			<label for="aliases">aliases (for searching)</label><br>
+			<label for="aliases">search keywords</label><br>
 			<input type="text" id="aliases" name="aliases"><br>
 			<br>
 			<label for="content">content</label><br>
@@ -15,16 +15,9 @@ var formText = `
 			<button type="submit">Submit</button>
 		</form>
 `
-// import markers.json
-// iterate through
-	// set text elements, default values in formtext
-	// add to resultText
-// add final stuff to resultText (submit button)
-// apply
-
 
 async function setForm() {
-	document.getElementById("adminBox").innerHTML = formText
+	document.getElementById("inputBox").innerHTML = formText
 
 	document.querySelector("form").addEventListener("submit", async function(event) {
         event.preventDefault(); 
@@ -68,3 +61,14 @@ async function readMarkers() {
 		console.error(error.message);
 	}
 }
+
+async function listMarkers() {
+	var result = ``
+	var markers = await readMarkers()
+	for (var i = 0; i < markers.length; i++) {
+		result += `<p>${markers[i]["name"]} ${markers[i]["position"]} <button onlick='loadMarkertoFields(${i})'>edit</button></p>`
+	}
+	document.getElementById("markersBox").innerHTML = result
+}
+listMarkers()
+
