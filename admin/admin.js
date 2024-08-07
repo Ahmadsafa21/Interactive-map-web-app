@@ -1,4 +1,36 @@
 var formText = `
+		<form id="markerForm">
+		<div class="form-group">
+			<label for="name">Marker Name:</label>
+			<input type="text" id="name" name="name" required>
+		</div>
+		<div class="form-group">
+			<label for="position">Marker Position:</label>
+			<input type="text" id="position" name="position" required>
+		</div>
+		<div class="form-group">
+			<label for="aliases">Aliases (for searching):</label>
+			<input type="text" id="aliases" name="aliases" required>
+		</div>
+		<div class="form-group">
+			<label for="content">Content:</label>
+			<textarea id="content" name="content" rows="10" cols="50" required></textarea>
+		</div>
+		<div class="form-group">
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+`;
+// import markers.json
+// iterate through
+	// set text elements, default values in formtext
+	// add to resultText
+// add final stuff to resultText (submit button)
+// apply
+
+
+async function setForm() {
+	document.getElementById("adminBox").innerHTML = formText
 		<form>
 			<label for="name">marker name</label><br>
 			<input type="text" id="name" name="name"><br>
@@ -18,6 +50,7 @@ var formText = `
 
 async function setForm() {
 	document.getElementById("inputBox").innerHTML = formText
+
 
 	document.querySelector("form").addEventListener("submit", async function(event) {
         event.preventDefault(); 
@@ -71,4 +104,3 @@ async function listMarkers() {
 	document.getElementById("markersBox").innerHTML = result
 }
 listMarkers()
-
