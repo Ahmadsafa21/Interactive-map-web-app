@@ -6,19 +6,32 @@ const port = 80;
 
 dirname = path.resolve(path.dirname(''));
 
+app.use(express.json());
+
 app.use(express.static(`${dirname}`));
 
 app.get("/", async (req, res) => {
     res.sendFile(`${dirname}/index.html`);
 });
 
-//Our map loads in the markers everytime the website is loaded.
-//If we make changes to markers.json and redirect back to map,
-//similar to below, then our new markers will also load.
-app.post("/addmarker", async (req, res) => {
-    res.sendFile(`{dirname}/index.html`);
+app.post("/updateMarkers", async (req, res) => {
+    console.log("Received request to update markers."); 
+
+    const newMarkersList = req.body;
+
+    const markersFilePath = path.join(dirname, 'map', 'markers.json');
+
+    fs.writeFile(markersFilePath, JSON.stringify(newMarkersList, null, 2), (err) => {
+        if (err) {
+            console.error('Error writing to markers.json:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log("Markers successfully updated.");
+            res.status(200).send('Markers updated successfully');
+        }
+    });
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on ${port}`)
-})
+    console.log(`Example app listening on ${port}`);
+});
