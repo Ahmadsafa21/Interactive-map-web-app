@@ -1,0 +1,24 @@
+#Some Notes from gs23/Gabriel
+#This yaml file and associated dockerfile makes a few assumptions. The server.js is listening on
+#port 80. Additionally, this yaml maps incoming port 80 traffic to this server. This may be changed
+#depending on how you decide to serve it, including enabling traffic through the firewall and into
+#the desired port. On gcp, this is a firewall rule.
+#
+#Another assumption is that you have a copy of markers.json in your current directory. For example,
+#if you had performed a git clone of the jason-washington project and are in the project directory,
+#then a change to "./map/markers.json:..." is necessary.
+#
+#
+#tl;dr
+#Depending on how this service is being hosted, the incoming port may be changed.
+#Depending on where the persistent 'markers.json' lives, the mounted file's path may be changed.
+
+services:
+  jason-wash-server:
+    image: gs23/jason-washington:latest
+    container_name: jason-washington
+    ports:
+      - "80:80"
+    volumes:
+      - "./markers.json:/app/map/markers.json"
+    restart: unless-stopped
