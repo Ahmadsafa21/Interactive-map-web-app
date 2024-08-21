@@ -1,6 +1,10 @@
+#Run as the following lines:
+#docker build . -t jason-build
+#docker run -p 8080:80 -v ./map/markers.json:/app/map/markers.json --name jason-washington jason-build
+
 FROM node:20-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
 
